@@ -27,7 +27,7 @@ export default function HomePage() {
               <h2 className="mb-4 font-heading text-3xl font-bold text-foreground sm:text-4xl">Our Ecosystem</h2>
               <p className="mb-12 font-body text-lg text-muted-foreground">
                 Discover our suite of products designed to empower businesses and individuals with cutting-edge
-                technology.
+                technology..
               </p>
             </div>
 
