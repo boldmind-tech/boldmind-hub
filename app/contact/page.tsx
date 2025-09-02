@@ -3,7 +3,7 @@ import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { generateSEO } from "@/lib/seo"
 import { SITE_CONFIG } from "@/lib/constants"
-import { Mail, MessageCircle, Linkedin, Twitter, MapPin, Clock, Phone } from "lucide-react"
+import { Mail, MessageCircle, Linkedin, Twitter, MapPin, Clock, Phone, Facebook } from "lucide-react"
 
 export const metadata = generateSEO({
   title: "Contact Us",
@@ -17,8 +17,8 @@ export default function ContactPage() {
       icon: Mail,
       title: "Email Us",
       description: "Send us a message and we'll respond within 24 hours",
-      action: "hello@boldmind.tech",
-      href: "mailto:hello@boldmind.tech",
+      action: "info@boldmind.ng",
+      href: "mailto:info@boldmind.ng",
     },
     {
       icon: MessageCircle,
@@ -43,9 +43,9 @@ export default function ContactPage() {
       href: SITE_CONFIG.social.linkedin,
     },
     {
-      icon: Twitter,
-      name: "Twitter",
-      href: SITE_CONFIG.social.twitter,
+      icon: Facebook,
+      name: "Facebook",
+      href: SITE_CONFIG.social.facebook,
     },
     {
       icon: Mail,

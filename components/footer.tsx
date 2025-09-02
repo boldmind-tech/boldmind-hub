@@ -1,128 +1,130 @@
-import Link from "next/link"
-import { Mail, MessageCircle, Linkedin, Twitter } from "lucide-react"
-import { SITE_CONFIG } from "@/lib/constants"
+import { SITE_CONFIG } from "../lib/constants";
+import { Facebook, Instagram, Linkedin, Mail, MessageCircle } from "lucide-react";
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="border-t bg-muted/50">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid gap-8 md:grid-cols-4">
-          {/* Brand Section */}
-          <div className="md:col-span-2">
-            <Link href="/" className="flex items-center space-x-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-                <span className="font-heading text-lg font-bold">B</span>
-              </div>
-              <span className="font-heading text-xl font-bold text-primary">BoldMind Hub</span>
-            </Link>
-            <p className="mt-4 max-w-md font-body text-muted-foreground">
-              {SITE_CONFIG.description}. Empowering businesses with innovative technology solutions across Nigeria and
-              beyond.
-            </p>
-            <div className="mt-6 flex space-x-4">
-              <Link href={SITE_CONFIG.social.email} className="text-muted-foreground hover:text-primary">
-                <Mail className="h-5 w-5" />
-                <span className="sr-only">Email</span>
-              </Link>
-              <Link
-                href={SITE_CONFIG.social.whatsapp}
-                className="text-muted-foreground hover:text-primary"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <MessageCircle className="h-5 w-5" />
-                <span className="sr-only">WhatsApp</span>
-              </Link>
-              <Link
-                href={SITE_CONFIG.social.linkedin}
-                className="text-muted-foreground hover:text-primary"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Linkedin className="h-5 w-5" />
-                <span className="sr-only">LinkedIn</span>
-              </Link>
-              <Link
-                href={SITE_CONFIG.social.twitter}
-                className="text-muted-foreground hover:text-primary"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Twitter className="h-5 w-5" />
-                <span className="sr-only">Twitter</span>
-              </Link>
-            </div>
-          </div>
-
-          {/* Navigation Links */}
+    <footer className="bg-primary text-primary-foreground py-12 px-6">
+      <div className="container mx-auto">
+        <div className="grid md:grid-cols-4 gap-8">
+          {/* BRAND/LOGO */}
           <div>
-            <h3 className="font-heading text-sm font-semibold text-foreground">Navigation</h3>
-            <ul className="mt-4 space-y-2">
-              {SITE_CONFIG.navigation.map((item) => (
+            <div className="flex items-center space-x-2 mb-4">
+              <div className="w-8 h-8 bg-secondary rounded flex items-center justify-center">
+                <span className="text-primary font-bold text-lg font-['Poppins']">B</span>
+              </div>
+              <span className="font-bold text-xl font-['Poppins']">{SITE_CONFIG.name}</span>
+            </div>
+            <p className="text-sm opacity-80 font-['Poppins']">{SITE_CONFIG.company}</p>
+            <p className="text-xs opacity-60 mt-2 font-['Poppins']">{SITE_CONFIG.description}</p>
+          </div>
+          
+          {/* PRODUCTS */}
+          <div>
+            <h3 className="font-semibold mb-4 font-['Poppins']">Products</h3>
+            <ul className="space-y-2 text-sm opacity-80 font-['Poppins']">
+              <li>
+                <a 
+                  href={SITE_CONFIG.products.ameboGist.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:text-secondary transition-colors"
+                >
+                  {SITE_CONFIG.products.ameboGist.name}
+                </a>
+              </li>
+              <li>
+                <a 
+                  href={SITE_CONFIG.products.eduCenter.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:text-secondary transition-colors"
+                >
+                  {SITE_CONFIG.products.eduCenter.name}
+                </a>
+              </li>
+              <li>
+                <a 
+                  href={SITE_CONFIG.products.planAI.url} 
+                  className="hover:text-secondary transition-colors"
+                >
+                  {SITE_CONFIG.products.planAI.name} (Coming Soon)
+                </a>
+              </li>
+            </ul>
+          </div>
+          
+          {/* COMPANY LINKS */}
+          <div>
+            <h3 className="font-semibold mb-4 font-['Poppins']">Company</h3>
+            <ul className="space-y-2 text-sm opacity-80 font-['Poppins']">
+              {SITE_CONFIG.navigation.slice(1).map((item) => (
                 <li key={item.name}>
-                  <Link href={item.href} className="font-body text-sm text-muted-foreground hover:text-primary">
+                  <a href={item.href} className="hover:text-secondary transition-colors">
                     {item.name}
-                  </Link>
+                  </a>
                 </li>
               ))}
+              <li>
+                <a href={`mailto:${SITE_CONFIG.social.email}`} className="hover:text-secondary transition-colors">
+                  Contact
+                </a>
+              </li>
             </ul>
           </div>
-
-          {/* Ecosystem Links */}
+          
+          {/* SOCIALS */}
           <div>
-            <h3 className="font-heading text-sm font-semibold text-foreground">Ecosystem</h3>
-            <ul className="mt-4 space-y-2">
-              <li>
-                <Link
-                  href={SITE_CONFIG.products.ameboGist.url}
-                  className="font-body text-sm text-muted-foreground hover:text-primary"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  AmeboGist.ng
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href={SITE_CONFIG.products.eduCenter.url}
-                  className="font-body text-sm text-muted-foreground hover:text-primary"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  EduCenter.com.ng
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href={SITE_CONFIG.products.planAI.url}
-                  className="font-body text-sm text-muted-foreground hover:text-primary"
-                >
-                  PlanAI Suite
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Bottom Section */}
-        <div className="mt-8 border-t pt-8">
-          <div className="flex flex-col items-center justify-between space-y-4 md:flex-row md:space-y-0">
-            <p className="font-body text-sm text-muted-foreground">
-              © {currentYear} {SITE_CONFIG.company}. All rights reserved.
-            </p>
-            <div className="flex space-x-6">
-              <Link href="/privacy" className="font-body text-sm text-muted-foreground hover:text-primary">
-                Privacy Policy
-              </Link>
-              <Link href="/terms" className="font-body text-sm text-muted-foreground hover:text-primary">
-                Terms of Service
-              </Link>
+            <h3 className="font-semibold mb-4 font-['Poppins']">Connect</h3>
+            <div className="flex space-x-3">
+              <a 
+                href={SITE_CONFIG.social.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 bg-secondary/20 rounded flex items-center justify-center hover:bg-secondary hover:text-primary transition-colors"
+              >
+                <Facebook className="h-4 w-4" />
+              </a>
+              <a 
+                href={SITE_CONFIG.social.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 bg-secondary/20 rounded flex items-center justify-center hover:bg-secondary hover:text-primary transition-colors"
+              >
+                <Instagram className="h-4 w-4" />
+              </a>
+              <a 
+                href={SITE_CONFIG.social.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 bg-secondary/20 rounded flex items-center justify-center hover:bg-secondary hover:text-primary transition-colors"
+              >
+                <Linkedin className="h-4 w-4" />
+              </a>
+              <a 
+                href={SITE_CONFIG.social.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 bg-secondary/20 rounded flex items-center justify-center hover:bg-secondary hover:text-primary transition-colors"
+              >
+                <MessageCircle className="h-4 w-4" />
+              </a>
+              <a
+                href={`mailto:${SITE_CONFIG.social.email}`}
+                className="w-8 h-8 bg-secondary/20 rounded flex items-center justify-center hover:bg-secondary hover:text-primary transition-colors"
+              >
+                <Mail className="h-4 w-4" />
+              </a>
             </div>
           </div>
+        </div>
+        
+        {/* COPYRIGHT */}
+        <div className="border-t border-white/20 mt-8 pt-8 text-center text-sm opacity-60 font-['Poppins']">
+          <p>&copy; {currentYear} {SITE_CONFIG.company}. All rights reserved.</p>
         </div>
       </div>
     </footer>
-  )
+  );
 }
