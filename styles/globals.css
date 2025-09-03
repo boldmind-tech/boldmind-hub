@@ -3,6 +3,13 @@
 
 @custom-variant dark (&:is(.dark *));
 
+
+:root{
+  --bm-primary: 0 0 139;       /* #00008B */
+  --bm-secondary: 255 193 7;   /* #FFC107 */
+  --bm-white: 255 255 255; 
+}
+
 :root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);

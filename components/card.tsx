@@ -12,12 +12,19 @@ interface CardProps {
   className?: string
 }
 
-export function Card({ title, description, href, status, external = false, className = "" }: CardProps) {
+export function Card({
+  title,
+  description,
+  href,
+  status,
+  external = false,
+  className = "",
+}: CardProps) {
   const statusColors = {
     live: "bg-green-100 text-green-800 border-green-200",
     development: "bg-yellow-100 text-yellow-800 border-yellow-200",
     deployed: "bg-blue-100 text-blue-800 border-blue-200",
-  }
+  } as const
 
   const CardContent = (
     <div
@@ -26,9 +33,14 @@ export function Card({ title, description, href, status, external = false, class
       <div className="flex items-start justify-between">
         <div className="flex-1">
           <div className="mb-3 flex items-center gap-2">
-            <h3 className="font-heading text-xl font-semibold text-card-foreground">{title}</h3>
+            <h3 className="font-heading text-xl font-semibold text-card-foreground">
+              {title}
+            </h3>
             {status && (
-              <Badge variant="outline" className={statusColors[status]}>
+              <Badge
+                variant="outline"
+                className={statusColors[status] || "bg-gray-100 text-gray-700 border-gray-200"}
+              >
                 {status}
               </Badge>
             )}
