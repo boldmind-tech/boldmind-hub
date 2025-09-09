@@ -24,6 +24,8 @@ import {
   Sparkles,
 } from "lucide-react"
 import Link from "next/link"
+import { PlanAIProductCard } from "@/components/PlanAIProductCard"
+
 
 export const metadata = generateSEO({
   title: "PlanAI - AI SaaS Platform",
@@ -196,35 +198,23 @@ export default function PlanAIPage() {
             </div>
 
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {PLANAI_PRODUCTS.map((product, index) => {
-                const IconComponent = productIcons[product.name as keyof typeof productIcons] || Brain
-                const StatusIcon = statusIcons[product.status as keyof typeof statusIcons] || Clock
-
-                return (
-                  <div
-                    key={index}
-                    className="group rounded-2xl border bg-card p-6 shadow-lg transition-all hover:shadow-xl"
-                  >
-                    <div className="mb-4 flex items-start justify-between">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                        <IconComponent className="h-6 w-6" />
-                      </div>
-                      <Badge variant="outline" className={statusColors[product.status as keyof typeof statusColors]}>
-                        <StatusIcon className="mr-1 h-3 w-3" />
-                        {product.status}
-                      </Badge>
-                    </div>
-                    <h3 className="mb-3 font-heading text-lg font-semibold text-card-foreground">{product.name}</h3>
-                    <p className="mb-4 font-body text-sm text-muted-foreground">{product.description}</p>
-                    <div className="flex items-center justify-between">
-                      <Button variant="ghost" size="sm" className="group/btn p-0 h-auto">
-                        <span className="mr-2">Learn more</span>
-                        <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
-                      </Button>
-                    </div>
-                  </div>
-                )
-              })}
+              {PLANAI_PRODUCTS.map((product, index) => (
+                <PlanAIProductCard
+                  key={index}
+                  name={product.name}
+                  description={product.description}
+                  status={
+                    product.status === "live"
+                      ? "deployed"
+                      : (product.status as "deployed" | "development" | "planning")
+                  }
+                  href={"#"}
+                  disabled={["development", "planning"].includes(
+                    product.status === "live" ? "deployed" : product.status
+                  )}
+                  iconKey={productIcons[product.name as keyof typeof productIcons] ? (product.name as keyof typeof productIcons) : "AI Receptionist"}
+                />
+              ))}
             </div>
           </div>
         </section>
