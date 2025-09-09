@@ -1,4 +1,4 @@
-// BoldMind master configuration — v1.1
+
 
 // ----------------------
 // Types
