@@ -1,86 +1,44 @@
-/* ---- Tailwind v4 core ---- */
 @import "tailwindcss";
 
-/* ---- Theme tokens (enable bg-brand-*, text-brand-*, border-brand-* etc.) ---- */
+/* === Brand & aliases (Tailwind v4 tokens) === */
 @theme {
-  /* Brand colors (already there, keep) */
+  /* Locked brand */
   --color-brand-primary: #00008B;
   --color-brand-secondary: #FFC107;
   --color-brand-white: #FFFFFF;
 
-  /* ✅ Compatibility aliases so your classes work */
+  /* Aliases used in components */
   --color-primary: var(--color-brand-primary);
   --color-primary-foreground: #FFFFFF;
   --color-secondary: var(--color-brand-secondary);
   --color-secondary-foreground: #000000;
 
-  /* ✅ Add xs breakpoint since you used `xs:` */
+  /* You used xs: */
   --breakpoint-xs: 480px;
 
-  /* Utilities */
+  /* Design tokens */
   --radius-2xl: 1rem;
   --shadow-soft: 0 8px 30px rgba(0,0,0,0.08);
-
 }
 
-/* =========================
-   Base defaults
-   ========================= */
+/* Base polish */
 html { scroll-behavior: smooth; }
 body { @apply bg-brand-white text-neutral-900 antialiased; }
+::selection { background: var(--color-secondary); color: #000; }
+*:focus-visible { outline: 2px solid var(--color-secondary); outline-offset: 2px; }
 
-/* Text selection uses secondary */
-::selection { background: var(--color-brand-secondary); color: #000; }
+/* Wider container */
+@utility bm-container { @apply mx-auto w-full max-w-7xl px-4 md:px-6; }
 
-/* Accessible focus ring */
-*:focus-visible { outline: 2px solid var(--color-brand-secondary); outline-offset: 2px; }
+/* Reusable UI */
+@utility btn { @apply inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ease-out; }
+@utility btn-primary { @apply btn bg-primary text-primary-foreground hover:opacity-90 shadow-soft; }
+@utility btn-secondary { @apply btn bg-secondary text-secondary-foreground hover:brightness-95 shadow-soft; }
+@utility btn-outline { @apply btn border border-primary bg-white text-black hover:bg-secondary/10; }
 
-/* Links */
-a { 
-  color: var(--color-brand-primary);
-  text-underline-offset: 4px;
-}
-a:hover { text-decoration: underline; }
+@utility badge { @apply inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium; }
+@utility badge-live { @apply badge bg-primary text-primary-foreground; }
+@utility badge-deployed { @apply badge bg-secondary text-secondary-foreground; }
+@utility badge-dev { @apply badge border border-primary bg-white text-black; }
 
-/* Headings */
-h1,h2,h3 { @apply font-semibold tracking-tight text-brand-primary; }
-h1 { @apply text-3xl md:text-4xl; }
-h2 { @apply text-2xl md:text-3xl; }
-h3 { @apply text-xl md:text-2xl; }
-
-/* Lists */
-ul,ol { @apply my-3 ml-6 space-y-1; list-style: disc; }
-ol { list-style: decimal; }
-
-/* Images */
-img { @apply max-w-full h-auto; }
-
-/* Scrollbar (webkit) */
-*::-webkit-scrollbar{ width:10px; height:10px; }
-*::-webkit-scrollbar-track{ background:#f5f5f5; }
-*::-webkit-scrollbar-thumb{ background: var(--color-brand-primary); border-radius:8px; }
-*::-webkit-scrollbar-thumb:hover{ background: var(--color-brand-secondary); }
-
-/* Motion safety */
-@media (prefers-reduced-motion: reduce) {
-  * { animation-duration:0.001ms!important; animation-iteration-count:1!important; transition-duration:0.001ms!important; scroll-behavior:auto!important; }
-}
-
-/* =========================
-   Simple, reusable classes
-   ========================= */
-@utility bm-container { @apply mx-auto w-full max-w-6xl px-4 md:px-6; }
-
-@utility btn         { @apply inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ease-out; }
-@utility btn-primary { @apply btn bg-brand-primary text-white hover:opacity-90 shadow-soft; }
-@utility btn-secondary { @apply btn bg-brand-secondary text-black hover:brightness-95 shadow-soft; }
-@utility btn-outline { @apply btn border border-brand-primary bg-brand-white text-black hover:bg-brand-secondary/10; }
-
-@utility badge       { @apply inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium; }
-@utility badge-live      { @apply badge bg-brand-primary text-white; }
-@utility badge-deployed  { @apply badge bg-brand-secondary text-black; }
-@utility badge-dev       { @apply badge border border-brand-primary bg-brand-white text-black; }
-
-@utility card { @apply rounded-2xl border border-brand-primary/20 bg-white p-5 shadow-soft transition-all duration-200 ease-out; }
-@utility section-title { @apply text-2xl font-bold text-brand-primary; }
-@utility section-subtitle { @apply mt-1 text-sm text-neutral-700; }
+@utility card { @apply rounded-2xl border border-black/10 bg-white p-6 shadow-soft transition-all duration-200 ease-out; }

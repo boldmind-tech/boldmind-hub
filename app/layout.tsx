@@ -1,68 +1,26 @@
-import type { Metadata } from "next";
-import { Montserrat, Lato } from "next/font/google";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { Montserrat, Lato } from "next/font/google";
 
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-montserrat",
-});
-
-const lato = Lato({
-  subsets: ["latin"],
-  weight: ["300", "400", "700"],
-  display: "swap",
-  variable: "--font-lato",
-});
+const montserrat = Montserrat({ subsets: ["latin"], variable: "--font-head" });
+const lato = Lato({ weight: ["400","700"], subsets: ["latin"], variable: "--font-body" });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://boldmind.ng"), 
-  title: "BoldMind Hub - Technology Solutions Enterprise",
-  description:
-    "Central gateway to the BoldMind ecosystem: AmeboGist, EduCenter, and PlanAI. Empowering businesses with innovative technology solutions.",
-  generator: "BoldMind Technology",
-  keywords: [
-    "BoldMind",
-    "Technology Solutions",
-    "AI",
-    "SaaS",
-    "AmeboGist",
-    "EduCenter",
-    "PlanAI",
-  ],
-  authors: [{ name: "BoldMind Technology Solution Enterprise" }],
-  openGraph: {
-    title: "BoldMind Hub - Technology Solutions Enterprise",
-    description:
-      "Central gateway to the BoldMind ecosystem: AmeboGist, EduCenter, and PlanAI",
-    type: "website",
-    locale: "en_US",
-    url: "https://boldmind.ng",
-    siteName: "BoldMind Hub",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "BoldMind Hub - Technology Solutions Enterprise",
-      },
-    ],
-  },
-  manifest: "/manifest.json",
-  robots: "index, follow",
-  
+  title: "BoldMind Hub",
+  description: "Awareness → Education → Enablement across AmeboGist, EduCenter, PlanAI.",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  themeColor: "#00008B",
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${montserrat.variable} ${lato.variable}`}>
-      <body className="font-lato antialiased bg-background text-foreground">
-        {children}
-      </body>
+      <body className="bg-brand-white font-sans">{children}</body>
     </html>
   );
 }

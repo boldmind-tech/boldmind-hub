@@ -8,12 +8,12 @@ import Image from "next/image";
 const getStatusColor = (status: string) =>
   status === "live" || status === "deployed" ? "bg-green-400" : "bg-secondary";
 
-export function Hero() {
+export default function Hero() {
   return (
-    <section className="relative bg-primary text-primary-foreground py-16 md:py-24 px-4 overflow-hidden">
-      {/* blobs */}
+    <section className="relative bg-primary text-primary-foreground py-16 md:py-24 overflow-hidden">
+      {/* glow blobs */}
       <motion.div
-        className="pointer-events-none absolute inset-0 z-0"
+        className="pointer-events-none absolute inset-0 -z-10"
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.22 }}
         transition={{ duration: 1.2 }}
@@ -22,9 +22,9 @@ export function Hero() {
         <div className="absolute right-10 bottom-8 h-32 w-32 rounded-full bg-white blur-2xl opacity-50" />
       </motion.div>
 
-      <div className="relative z-10 bm-container flex flex-col md:flex-row items-center text-center md:text-left">
-        {/* Left */}
-        <div className="flex-1">
+      <div className="bm-container flex flex-col md:flex-row items-center text-center md:text-left">
+        {/* Left: headline + pills + socials */}
+        <div className="flex-1 px-2">
           <motion.h1
             className="font-extrabold mb-6 text-4xl xs:text-5xl md:text-6xl leading-tight tracking-tight drop-shadow-lg"
             initial={{ opacity: 0, y: 36 }}
@@ -38,7 +38,7 @@ export function Hero() {
             </span>
           </motion.h1>
 
-          {/* Product pills */}
+          {/* Product status pills */}
           <motion.div
             className="flex flex-wrap justify-center md:justify-start items-center gap-4 mb-8 text-sm"
             initial="hidden"
@@ -55,7 +55,7 @@ export function Hero() {
             {Object.entries(SITE_CONFIG.products).map(([key, product]) => (
               <motion.div
                 key={key}
-                className="flex items-center space-x-2 group"
+                className="flex items-center gap-2 group"
                 whileHover={{ scale: 1.1 }}
                 transition={{ type: "spring", stiffness: 400, damping: 22 }}
               >
@@ -76,39 +76,42 @@ export function Hero() {
             ))}
           </motion.div>
 
-          {/* Social */}
+          {/* Social icons */}
           <motion.div
-            className="flex justify-center md:justify-start space-x-2 xs:space-x-3 sm:space-x-4 mb-8"
+            className="flex justify-center md:justify-start gap-2 xs:gap-3 sm:gap-4 mb-8"
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35, duration: 0.5 }}
           >
-            <SocialIcon href={SITE_CONFIG.social.facebook!} icon={Facebook} label="Facebook" />
-            <SocialIcon href={SITE_CONFIG.social.instagram!} icon={Instagram} label="Instagram" />
-            <SocialIcon href={SITE_CONFIG.social.linkedin!} icon={Linkedin} label="LinkedIn" />
-            <SocialIcon href={`mailto:${SITE_CONFIG.social.email}`} icon={Mail} label="Email" />
+            <Social href={SITE_CONFIG.social.facebook!} icon={Facebook} label="Facebook" />
+            <Social href={SITE_CONFIG.social.instagram!} icon={Instagram} label="Instagram" />
+            <Social href={SITE_CONFIG.social.linkedin!} icon={Linkedin} label="LinkedIn" />
+            <Social href={`mailto:${SITE_CONFIG.social.email}`} icon={Mail} label="Email" />
           </motion.div>
 
-          <motion.p
-            className="text-lg/7 opacity-90 font-medium"
-            initial={{ opacity: 0, y: 10 }}
+          <motion.div
+            className="flex justify-center md:justify-start gap-3"
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.45 }}
+            transition={{ delay: 0.5, duration: 0.45 }}
           >
-            {SITE_CONFIG.company}
-          </motion.p>
+            <a href="/ecosystem" className="btn-secondary">Explore Ecosystem</a>
+            <a href="/planai?utm_source=hub&utm_medium=hero&utm_campaign=ecosystem" className="btn-outline">
+              Try PlanAI
+            </a>
+          </motion.div>
         </div>
 
-        {/* Right */}
+        {/* Right: illustration */}
         <motion.div
-          className="flex-1 w-full md:w-auto mt-10 md:mt-0 flex justify-center"
+          className="flex-1 w-full md:w-auto mt-10 md:mt-0 flex justify-center px-2"
           initial={{ scale: 0.96, opacity: 0, x: 32 }}
           animate={{ scale: 1, opacity: 1, x: 0 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
         >
           <Image
             src="/hero-illustration.svg"
-            alt="BoldMind Ecosystem Illustration"
+            alt="BoldMind Ecosystem"
             width={420}
             height={420}
             className="w-full max-w-sm md:max-w-md rounded-xl shadow-[var(--shadow-soft)]"
@@ -120,15 +123,9 @@ export function Hero() {
   );
 }
 
-function SocialIcon({
-  href,
-  icon: Icon,
-  label,
-}: {
-  href: string;
-  icon: any;
-  label: string;
-}) {
+function Social({
+  href, icon: Icon, label,
+}: { href: string; icon: any; label: string }) {
   return (
     <motion.a
       href={href}
