@@ -3,12 +3,24 @@
 
 /* ---- Theme tokens (enable bg-brand-*, text-brand-*, border-brand-* etc.) ---- */
 @theme {
-  --color-brand-primary: #00008B;   /* Deep Navy */
-  --color-brand-secondary: #FFC107; /* Bold Yellow */
-  --color-brand-white: #FFFFFF;     /* White */
+  /* Brand colors (already there, keep) */
+  --color-brand-primary: #00008B;
+  --color-brand-secondary: #FFC107;
+  --color-brand-white: #FFFFFF;
 
-  --radius-2xl: 1rem;               /* enables rounded-2xl */
-  --shadow-soft: 0 8px 30px rgba(0,0,0,0.08); /* enables shadow-soft */
+  /* ✅ Compatibility aliases so your classes work */
+  --color-primary: var(--color-brand-primary);
+  --color-primary-foreground: #FFFFFF;
+  --color-secondary: var(--color-brand-secondary);
+  --color-secondary-foreground: #000000;
+
+  /* ✅ Add xs breakpoint since you used `xs:` */
+  --breakpoint-xs: 480px;
+
+  /* Utilities */
+  --radius-2xl: 1rem;
+  --shadow-soft: 0 8px 30px rgba(0,0,0,0.08);
+
 }
 
 /* =========================
@@ -24,7 +36,10 @@ body { @apply bg-brand-white text-neutral-900 antialiased; }
 *:focus-visible { outline: 2px solid var(--color-brand-secondary); outline-offset: 2px; }
 
 /* Links */
-a { @apply text-brand-primary underline-offset-4; }
+a { 
+  color: var(--color-brand-primary);
+  text-underline-offset: 4px;
+}
 a:hover { text-decoration: underline; }
 
 /* Headings */
