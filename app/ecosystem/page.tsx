@@ -1,83 +1,95 @@
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { SITE_CONFIG } from "@/lib/constants"
-import { generateSEO } from "@/lib/seo"
-import { ExternalLink, Users, BookOpen, Brain, Zap, TrendingUp, Globe } from "lucide-react"
-import Link from "next/link"
-import { EcosystemSection } from "@/components/EcosystemSection";
+// app/ecosystem/page.tsx
+import { SITE_CONFIG } from "@/lib/config/master-config";
+import { statusFromRepo, planaiModules, ProductStatus } from "@/lib/config/derive";
 
-export const metadata = generateSEO({
-  title: "Ecosystem",
-  description:
-    "Explore the complete BoldMind ecosystem: AmeboGist, EduCenter, and PlanAI - innovative technology solutions for modern businesses",
-})
+function StatusBadge({ status }: { status: ProductStatus }) {
+  const { colors } = SITE_CONFIG;
+  const bg =
+    status === "live" ? colors.primary :
+    status === "deployed" ? colors.secondary :
+    colors.white;
+  const fg = status === "development" ? "#000" : "#fff";
+  const border = status === "development" ? `1px solid ${colors.primary}` : "none";
+  return (
+    <span style={{
+      background: bg, color: fg, border,
+      fontSize: 12, padding: "2px 8px", borderRadius: 999
+    }}>
+      {status}
+    </span>
+  );
+}
+
+function Card({
+  title, description, href, status, children,
+}: { title: string; description: string; href: string; status: ProductStatus; children?: React.ReactNode; }) {
+  const { colors } = SITE_CONFIG;
+  return (
+    <div style={{
+      border: `1px solid ${colors.primary}`,
+      borderRadius: 16, padding: 16, background: "#fff"
+    }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+        <h3 style={{ margin: 0 }}>{title}</h3>
+        <StatusBadge status={status} />
+      </div>
+      <p style={{ marginTop: 4 }}>{description}</p>
+      {children}
+      <a href={href} style={{
+        display: "inline-block", marginTop: 12, textDecoration: "none",
+        background: colors.secondary, color: "#000", padding: "8px 12px", borderRadius: 8
+      }}>
+        Open
+      </a>
+    </div>
+  );
+}
 
 export default function EcosystemPage() {
+  const { products, colors, name, tagline } = SITE_CONFIG;
+
+  const agStatus  = statusFromRepo("ambeo-gist");
+  const eduStatus = statusFromRepo("educenter-frontend");
+  const paiStatus = statusFromRepo("ai-receptionist-platform");
+  const modules   = planaiModules();
+
   return (
-    <div className="min-h-screen bg-background">
-      <Navbar />
+    <main style={{ padding: 24, fontFamily: "system-ui", background: colors.white }}>
+      <h1 style={{ marginBottom: 4 }}>{name} — Ecosystem</h1>
+      <p style={{ marginTop: 0 }}>{tagline}</p>
 
-      <main>
-        {/* Hero Section */}
-        <section className="py-20 lg:py-32">
-          <div className="container mx-auto px-4">
-            <div className="mx-auto max-w-3xl text-center">
-              <h1 className="mb-6 font-heading text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-                The BoldMind{" "}
-                <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                  Ecosystem
-                </span>
-              </h1>
-              <p className="mb-8 font-body text-xl text-muted-foreground">
-                A comprehensive suite of technology solutions designed to empower businesses, creators, and learners
-                across Nigeria and beyond.
-              </p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
-                  <Globe className="mr-1 h-3 w-3" />3 Live Products
-                </Badge>
-                <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
-                  <Users className="mr-1 h-3 w-3" />
-                  15+ Paying Customers
-                </Badge>
-                <Badge variant="outline" className="bg-purple-50 text-purple-700 border-purple-200">
-                  <Brain className="mr-1 h-3 w-3" />
-                  AI-Powered Solutions
-                </Badge>
-              </div>
-            </div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 16, marginTop: 24 }}>
+        <Card
+          title={products.ameboGist.name}
+          description={products.ameboGist.description}
+          href={products.ameboGist.url}
+          status={agStatus}
+        />
+        <Card
+          title={products.eduCenter.name}
+          description={products.eduCenter.description}
+          href={products.eduCenter.url}
+          status={eduStatus}
+        />
+        <Card
+          title={products.planAI.name}
+          description={products.planAI.description}
+          href="/planai"
+          status={paiStatus}
+        >
+          <div style={{ marginTop: 8 }}>
+            <strong>Suite</strong>
+            <ul style={{ margin: "8px 0 0 16px" }}>
+              {modules.map(m => (
+                <li key={m.slug} style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 4 }}>
+                  <StatusBadge status={m.status} />
+                  <span>{m.label}</span>
+                </li>
+              ))}
+            </ul>
           </div>
-        </section>
-
-        {/* Products Grid */}
-          <EcosystemSection />
-
-        {/* CTA Section */}
-        <section className="py-16 lg:py-24">
-          <div className="container mx-auto px-4">
-            <div className="mx-auto max-w-2xl text-center">
-              <h2 className="mb-4 font-heading text-3xl font-bold text-foreground sm:text-4xl">
-                Ready to Transform Your Business?
-              </h2>
-              <p className="mb-8 font-body text-lg text-muted-foreground">
-                Join the growing community of businesses leveraging BoldMind's innovative technology solutions.
-              </p>
-              <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
-                <Button size="lg" asChild>
-                  <Link href="/contact">Get Started Today</Link>
-                </Button>
-                <Button size="lg" variant="outline" asChild>
-                  <Link href="/about">Learn Our Story</Link>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <Footer />
-    </div>
-  )
+        </Card>
+      </div>
+    </main>
+  );
 }
