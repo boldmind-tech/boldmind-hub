@@ -1,0 +1,49 @@
+name: build
+
+on:
+  push:
+    branches:
+      - develop
+      - main
+  pull_request:
+    branches:
+      - develop
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck --if-present
+
+      - name: Lint
+        run: npm run lint --if-present
+
+      - name: Build
+        env:
+          NEXT_TELEMETRY_DISABLED: 1
+          GA4_ID: G-DEVPLACEHOLDER
+          META_PIXEL_ID: "000000000000000"
+          NEXT_PUBLIC_PAYSTACK_PK: pk_test_placeholder
+          PAYSTACK_SK: sk_test_placeholder
+          FLW_PUBLIC_KEY: FLWPK_TEST_PLACEHOLDER
+          FLW_SECRET_KEY: FLWSK_TEST_PLACEHOLDER
+          OPENAI_API_KEY: sk-test
+          GEMINI_API_KEY: test
+          MONGODB_URI: mongodb://127.0.0.1:27017/dummy
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/dummy
+        run: npm run build
