@@ -3,7 +3,7 @@ import fs from "fs";
 
 // ---- EDIT THESE ----
 const KEY_FILE = "./service-account.json"; // your service account key
-const PROPERTY_ID = "YOUR_PROPERTY_ID";    // e.g. 123456789
+const PROPERTY_ID = "504410103";    // e. 123456789
 // Per stream settings
 const STREAM_SETTINGS = [
   {
