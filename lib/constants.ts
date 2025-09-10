@@ -165,7 +165,7 @@ export const SITE_CONFIG: SiteConfig = {
     twitter: { handle: "@BoldMindTech", site: "@BoldMindTech", cardType: "summary_large_image" },
   },
 
-  analytics: { ga4: "G-XXXXXXXXXX", metaPixel: "XXXXXXXXXXXXXXX" },
+  analytics: { ga4: "G-G-L54GQSGD56", metaPixel: "XXXXXXXXXXXXXXX" },
 
   featureFlags: {
     enableI18n: true,
@@ -284,7 +284,7 @@ export const getPlanAIProduct = (slug: string) => PLANAI_PRODUCTS.find(p => p.sl
 // ----------------------
 export type TelemetryIDs = { ga4?: string; metaPixel?: string; gscProperty?: string };
 export const APP_TELEMETRY: Record<"hub" | "amebogist" | "educenter" | "planai", TelemetryIDs> = {
-  hub: { ga4: "G-xxxxxxxxxx", metaPixel: "xxxxxxxxxxxxx", gscProperty: "https://boldmind.ng" },
+  hub: { ga4: "G-L54GQSGD56", metaPixel: "xxxxxxxxxxxxx", gscProperty: "https://boldmind.ng" },
   amebogist: { ga4: "G-xxxxxxxxxx", metaPixel: "xxxxxxxxxxxxx", gscProperty: "https://amebogist.ng" },
   educenter: { ga4: "G-xxxxxxxxxx", metaPixel: "xxxxxxxxxxxxx", gscProperty: "https://educenter.com.ng" },
   planai: { ga4: "G-xxxxxxxxxx", metaPixel: "xxxxxxxxxxxxx", gscProperty: "https://boldmind.ng/planai" },

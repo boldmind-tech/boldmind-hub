@@ -1,26 +1,27 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { Montserrat, Lato } from "next/font/google";
+import Script from "next/script";
 
-const montserrat = Montserrat({ subsets: ["latin"], variable: "--font-head" });
-const lato = Lato({ weight: ["400","700"], subsets: ["latin"], variable: "--font-body" });
-
-export const metadata: Metadata = {
-  title: "BoldMind Hub",
-  description: "Awareness → Education → Enablement across AmeboGist, EduCenter, PlanAI.",
-};
-
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 1,
-  themeColor: "#00008B",
-};
+export const metadata: Metadata = { title: "BoldMind Hub" };
+export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#00008B" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const GA = process.env.NEXT_PUBLIC_GA4_ID; // your stream ID for boldmind.ng
+
   return (
-    <html lang="en" className={`${montserrat.variable} ${lato.variable}`}>
-      <body className="bg-brand-white font-sans">{children}</body>
+    <html lang="en">
+      <body>
+        {GA && (
+          <>
+            <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA}`} strategy="afterInteractive" />
+            <Script id="gtag-init" strategy="afterInteractive">
+              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date()); gtag('config','${GA}',{send_page_view:true});`}
+            </Script>
+          </>
+        )}
+        {children}
+      </body>
     </html>
   );
 }
