@@ -1,27 +1,23 @@
-import type { Metadata, Viewport } from "next";
+// app/layout.tsx
+import type { Metadata } from "next";
 import "./globals.css";
-import Script from "next/script";
+import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
 
-export const metadata: Metadata = { title: "BoldMind Hub" };
-export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#00008B" };
+export const metadata: Metadata = {
+  title: "BoldMind Hub — Empowering Innovation Through Technology",
+    description:
+        "The central gateway to BoldMind's ecosystem: AmeboGist, EduCenter, and PlanAI.",
+        };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const GA = process.env.NEXT_PUBLIC_GA4_ID; // your stream ID for boldmind.ng
-
-  return (
-    <html lang="en">
-      <body>
-        {GA && (
-          <>
-            <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA}`} strategy="afterInteractive" />
-            <Script id="gtag-init" strategy="afterInteractive">
-              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date()); gtag('config','${GA}',{send_page_view:true});`}
-            </Script>
-          </>
-        )}
-        {children}
-      </body>
-    </html>
-  );
-}
+        export default function RootLayout({ children }: { children: React.ReactNode }) {
+          return (
+              <html lang="en">
+                    <body className="bg-brand-white text-neutral-900 antialiased">
+                            <Navbar />
+                                    <div className="min-h-[60vh]">{children}</div>
+                                            <Footer />
+                                                  </body>
+                                                      </html>
+                                                        );
+                                                        }

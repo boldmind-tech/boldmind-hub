@@ -1,0 +1,17 @@
+{
+  "git.confirmSync": false,
+  "git.autofetch": true,
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "files.eol": "\n",
+  "terminal.integrated.defaultProfile.linux": "bash",
+  "codespaces.portforwarding.exclude": [],
+  "codespaces.autoForwardPorts": true,
+  "codespaces.portAttributes": {
+    "3000": {
+      "label": "Next.js dev server",
+      "protocol": "http",
+      "onAutoForward": "openBrowserOnce"
+    }
+  }
+}
